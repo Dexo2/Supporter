@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("MTUxNzYxMDE5MjUxNzIwNjE2Nw.G4Oxfn.dAerpWiRXEjV3VkmFHUdcSO8PBxBP3O9H0U9bU")
 KANAL_NAZEV = "💕〢žádost-o-roli-supporter"
 ROLE_NAZEV = "💕| Supporter"
-OBRAZEK_URL = "https://i.imgur.com/TVUJ_OBRAZEK.png"  # nahraj obrázek na imgur.com a vlož URL
+OBRAZEK_URL = "https://r2.fivemanage.com/FHrmbmFDGnjFOXGlx48m0/ssssss.png"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -34,13 +34,13 @@ class SupporterView(View):
 
         if role is None:
             await interaction.response.send_message(
-                "❌ Role nebyla nalezena. Kontaktuj admina.", ephemeral=True
+                "Role nebyla nalezena. Kontaktuj admina.", ephemeral=True
             )
             return
 
         if role in interaction.user.roles:
             await interaction.response.send_message(
-                "✅ Roli už máš!", ephemeral=True
+                "Roli už máš!", ephemeral=True
             )
             return
 
@@ -52,17 +52,17 @@ class SupporterView(View):
 
 @bot.event
 async def on_ready():
-    print(f"✅ Bot přihlášen jako {bot.user}")
+    print(f"Bot přihlášen jako {bot.user}")
     bot.add_view(SupporterView())
 
     kanal = discord.utils.get(bot.get_all_channels(), name=KANAL_NAZEV)
     if kanal is None:
-        print(f"❌ Kanál '{KANAL_NAZEV}' nebyl nalezen!")
+        print(f"Kanál '{KANAL_NAZEV}' nebyl nalezen!")
         return
 
     async for zprava in kanal.history(limit=10):
         if zprava.author == bot.user and zprava.embeds:
-            print("ℹ️ Embed již existuje, neodesílám znovu.")
+            print("Embed již existuje, neodesílám znovu.")
             return
 
     embed = discord.Embed(
@@ -85,7 +85,7 @@ async def on_ready():
     embed.set_image(url=OBRAZEK_URL)
 
     await kanal.send(embed=embed, view=SupporterView())
-    print("✅ Embed odeslán!")
+    print("Embed odeslán!")
 
 
 bot.run(BOT_TOKEN)
